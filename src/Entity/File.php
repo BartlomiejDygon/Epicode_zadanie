@@ -4,15 +4,18 @@ namespace App\Entity;
 
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 #[ORM\Table(name: '`user__file`')]
 class File
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+	#[ORM\Id]
+	#[ORM\Column(type: "uuid", unique: true)]
+	#[ORM\GeneratedValue(strategy: "CUSTOM")]
+	#[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+	protected UuidInterface|string $id;
 
     #[ORM\Column(length: 255)]
     private ?string $originalName = null;
@@ -29,7 +32,7 @@ class File
     #[ORM\OneToOne(inversedBy: 'file', cascade: ['persist', 'remove'])]
     private ?User $owner = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

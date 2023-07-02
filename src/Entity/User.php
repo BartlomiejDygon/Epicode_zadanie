@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
@@ -22,8 +24,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected UuidInterface|string $id;
 
 	#[Assert\Email(
-		message: 'Podany emial "{{ value }}" jest nieprawidłowy.',
-	)]
+    	message: 'Podany emial "{{ value }}" jest nieprawidłowy.',
+    )]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -34,43 +36,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
 	#[Assert\PasswordStrength([
-		'minScore' => PasswordStrength::STRENGTH_MEDIUM,
-	])]
-    #[ORM\Column]
-    private ?string $password = null;
+                        		'minScore' => PasswordStrength::STRENGTH_MEDIUM,
+                        	])]
+                            #[ORM\Column]
+                            private ?string $password = null;
 
 	#[Assert\Length(
-		min: 3,
-		minMessage: 'Imię musi posiadać mnie co namiej {{ limit }} znaki'
-	)]
-    #[ORM\Column(length: 50)]
-    private ?string $firstName = null;
+                        		min: 3,
+                        		minMessage: 'Imię musi posiadać mnie co namiej {{ limit }} znaki'
+                        	)]
+                            #[ORM\Column(length: 50)]
+                            private ?string $firstName = null;
 
 	#[Assert\Length(
-		min: 3,
-		minMessage: 'Nazwisko musi posiadać mnie co namiej {{ limit }} znaki'
-	)]
-    #[ORM\Column(length: 50)]
-    private ?string $lastName = null;
+                        		min: 3,
+                        		minMessage: 'Nazwisko musi posiadać mnie co namiej {{ limit }} znaki'
+                        	)]
+                            #[ORM\Column(length: 50)]
+                            private ?string $lastName = null;
 
 	#[Assert\Regex(
-		pattern: '/^([0-9]{9,14})$/',
-		message: 'Błędny numer telefonu',
-	)]
-    #[ORM\Column(length: 255)]
-    private ?string $phone = null;
+                        		pattern: '/^([0-9]{9,14})$/',
+                        		message: 'Błędny numer telefonu',
+                        	)]
+                            #[ORM\Column(length: 255)]
+                            private ?string $phone = null;
 
 	#[Assert\Length(
-		min: 4,
-		minMessage: 'Adres musi posiadać mnie co namiej {{ limit }} znaki'
-	)]
-    #[ORM\Column(length: 255)]
-    private ?string $address = null;
+                        		min: 4,
+                        		minMessage: 'Adres musi posiadać mnie co namiej {{ limit }} znaki'
+                        	)]
+                            #[ORM\Column(length: 255)]
+                            private ?string $address = null;
 
     #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
     private ?File $file = null;
 
-    public function getId(): ?int
+    #[ORM\ManyToMany(targetEntity: JobOffer::class, inversedBy: 'jobApplication')]
+    #[ORM\JoinTable(name: 'job__application')]
+    private Collection $jobApplication;
+
+    public function __construct()
+    {
+        $this->jobApplication = new ArrayCollection();
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -206,6 +217,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobOffer>
+     */
+    public function getJobApplication(): Collection
+    {
+        return $this->jobApplication;
+    }
+
+    public function addJobApplication(JobOffer $jobApplication): static
+    {
+        if (!$this->jobApplication->contains($jobApplication)) {
+            $this->jobApplication->add($jobApplication);
+        }
+
+        return $this;
+    }
+
+    public function removeJobApplication(JobOffer $jobApplication): static
+    {
+        $this->jobApplication->removeElement($jobApplication);
 
         return $this;
     }
