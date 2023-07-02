@@ -24,9 +24,6 @@ class File
     private ?string $clearName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $path = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $size = null;
 
     #[ORM\OneToOne(inversedBy: 'file', cascade: ['persist', 'remove'])]
@@ -57,18 +54,6 @@ class File
     public function setClearName(string $clearName): static
     {
         $this->clearName = $clearName;
-
-        return $this;
-    }
-
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    public function setPath(string $path): static
-    {
-        $this->path = $path;
 
         return $this;
     }
