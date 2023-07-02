@@ -4,13 +4,40 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <header>
+        <div class="logo">
+            <a href="{{ path('main_page') }}" class="button_main">EpicJob</a>
+        </div>
+        <navi>
+            <p>Moje konto</p>
+            <div class="user_panel">
+                {% if not app.user %}
+                    <h3>Witaj na EpicJob</h3>
+                    <p>Zaloguj sie i uzyskaj dostęp do szubkiego aplikowania i wielu innych funkcji</p>
+                    <a href="{{ path('app_login') }}" class="button_main">Zaloguj się</a>
+                    <p>Nie masz jeszcze konta ?</p>
+                    <a href="{{ path('user_add') }}" class="button_main">Zarejestruj się</a>
+                {% else %}
+                    <p>Moje aplikacje</p>
+                    <a href="{{ path('app_logout') }}" class="button_main">Wyloguj się</a>
+                {% endif %}
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>Panel Administratora</p>
+                <div class="admin_panel">
+                    <a href="{{ path('job_offer_add') }}" class="button_main">Dodaj oferte</a>
+                    <a href="{{ path('job_offer_list') }}" class="button_main">Lista ofert</a>
+                </div>
+            {% endif %}
+        </navi>
+    </header>
+        <section>
+
+
+
+            {% block body %}{% endblock %}
+        </section>
     </body>
 </html>
