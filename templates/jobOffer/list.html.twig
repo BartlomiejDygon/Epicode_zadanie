@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    <div class="box middle_eight padding_huge choosing_box login_with_SSO_page">
+        <ul>
+            {% for offert in jobOffers %}
+                <li>
+                    <div>
+                        <p><strong>{{ offert.title }}</strong></p>
+                        <p>{{ offert.description }}</p>
+                        <div>
+                            <p>{{ offert.createdAt|date("m/d/Y")}}</p>
+                            <p>{{ offert.jobApplications|length }}</p>
+                        </div>
+                        <div>
+                            <a href="{{ path('job_offer_edit', {id: offert.id  }) }}" class="button_main">Edytuj</a>
+                            <a href="{{ path('job_offer_remove', {id: offert.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="button_main">Usuń</a>
+                        </div>
+                        <ul>
+                            {% for application in offert.jobApplications %}
+                            <li>
+                                <div>
+                                    {% if application.isRead == false %}
+                                        <p><strong>Nowe</strong></p>
+                                    {% endif %}
+                                    <p>{{ application.user.emial }}</p>
+                                    <a href="{{ path('job_offer_edit', {id: offert.id  }) }}" class="button_main">Otwórz aplikację</a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
