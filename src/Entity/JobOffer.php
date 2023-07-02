@@ -15,35 +15,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 class JobOffer
 {
 	#[ORM\Id]
-	#[ORM\Column(type: "uuid", unique: true)]
-	#[ORM\GeneratedValue(strategy: "CUSTOM")]
-	#[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-	protected UuidInterface|string $id;
+               	#[ORM\Column(type: "uuid", unique: true)]
+               	#[ORM\GeneratedValue(strategy: "CUSTOM")]
+               	#[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+               	protected UuidInterface|string $id;
 
 	#[Assert\Length(
-		min: 5,
-		minMessage: 'Tytuł musi posiadać co namiej {{ limit }} znaków'
-	)]
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+               		min: 5,
+               		minMessage: 'Tytuł musi posiadać co namiej {{ limit }} znaków'
+               	)]
+                   #[ORM\Column(length: 255)]
+                   private ?string $title = null;
 
 	#[Assert\Length(
-		min: 10,
-		minMessage: 'Opis musi posiadać co namiej {{ limit }} znaków'
-	)]
-    #[ORM\Column(length: 2500)]
-    private ?string $description = null;
+               		min: 10,
+               		minMessage: 'Opis musi posiadać co namiej {{ limit }} znaków'
+               	)]
+                   #[ORM\Column(length: 2500)]
+                   private ?string $description = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'jobApplication')]
-    private Collection $jobApplication;
+    #[ORM\OneToMany(mappedBy: 'jobOffer', targetEntity: JobApplication::class, orphanRemoval: true)]
+    private Collection $jobApplications;
 
     public function __construct()
     {
 		$this->createdAt = new \DateTimeImmutable();
-        $this->jobApplication = new ArrayCollection();
+        $this->jobApplications = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -88,27 +88,30 @@ class JobOffer
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, JobApplication>
      */
-    public function getJobApplication(): Collection
+    public function getJobApplications(): Collection
     {
-        return $this->jobApplication;
+        return $this->jobApplications;
     }
 
-    public function addJobApplication(User $jobApplication): static
+    public function addJobApplication(JobApplication $jobApplication): static
     {
-        if (!$this->jobApplication->contains($jobApplication)) {
-            $this->jobApplication->add($jobApplication);
-            $jobApplication->addJobApplication($this);
+        if (!$this->jobAplications->contains($jobApplication)) {
+            $this->jobAplications->add($jobApplication);
+            $jobApplication->setJobOffer($this);
         }
 
         return $this;
     }
 
-    public function removeJobApplication(User $jobApplication): static
+    public function removeJobApplication(JobApplication $jobApplication): static
     {
-        if ($this->jobApplication->removeElement($jobApplication)) {
-            $jobApplication->removeJobApplication($this);
+        if ($this->jobAplications->removeElement($jobApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($jobApplication->getJobOffer() === $this) {
+                $jobApplication->setJobOffer(null);
+            }
         }
 
         return $this;

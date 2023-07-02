@@ -21,12 +21,11 @@ class UserController extends AbstractController
 	{
 	}
 
-	#[Route('/register', name: 'add_user')]
+	#[Route('/register', name: 'user_add')]
 	public function addUser(Request $request, UserPasswordHasherInterface $passwordHasher): Response
 	{
 		$user = new User();
 		$form = $this->createForm(UserType::class, $user);
-//		dd($form);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {

@@ -24,10 +24,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected UuidInterface|string $id;
 
 	#[Assert\Email(
-    	message: 'Podany emial "{{ value }}" jest nieprawidłowy.',
-    )]
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+                      	message: 'Podany emial "{{ value }}" jest nieprawidłowy.',
+                      )]
+                      #[ORM\Column(length: 180, unique: true)]
+                      private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -36,49 +36,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
 	#[Assert\PasswordStrength([
-                        		'minScore' => PasswordStrength::STRENGTH_MEDIUM,
-                        	])]
-                            #[ORM\Column]
-                            private ?string $password = null;
+                                          		'minScore' => PasswordStrength::STRENGTH_MEDIUM,
+                                          	])]
+                                              #[ORM\Column]
+                                              private ?string $password = null;
 
 	#[Assert\Length(
-                        		min: 3,
-                        		minMessage: 'Imię musi posiadać mnie co namiej {{ limit }} znaki'
-                        	)]
-                            #[ORM\Column(length: 50)]
-                            private ?string $firstName = null;
+                                          		min: 3,
+                                          		minMessage: 'Imię musi posiadać mnie co namiej {{ limit }} znaki'
+                                          	)]
+                                              #[ORM\Column(length: 50)]
+                                              private ?string $firstName = null;
 
 	#[Assert\Length(
-                        		min: 3,
-                        		minMessage: 'Nazwisko musi posiadać mnie co namiej {{ limit }} znaki'
-                        	)]
-                            #[ORM\Column(length: 50)]
-                            private ?string $lastName = null;
+                                          		min: 3,
+                                          		minMessage: 'Nazwisko musi posiadać mnie co namiej {{ limit }} znaki'
+                                          	)]
+                                              #[ORM\Column(length: 50)]
+                                              private ?string $lastName = null;
 
 	#[Assert\Regex(
-                        		pattern: '/^([0-9]{9,14})$/',
-                        		message: 'Błędny numer telefonu',
-                        	)]
-                            #[ORM\Column(length: 255)]
-                            private ?string $phone = null;
+                                          		pattern: '/^([0-9]{9,14})$/',
+                                          		message: 'Błędny numer telefonu',
+                                          	)]
+                                              #[ORM\Column(length: 255)]
+                                              private ?string $phone = null;
 
 	#[Assert\Length(
-                        		min: 4,
-                        		minMessage: 'Adres musi posiadać mnie co namiej {{ limit }} znaki'
-                        	)]
-                            #[ORM\Column(length: 255)]
-                            private ?string $address = null;
+                                          		min: 4,
+                                          		minMessage: 'Adres musi posiadać mnie co namiej {{ limit }} znaki'
+                                          	)]
+                                              #[ORM\Column(length: 255)]
+                                              private ?string $address = null;
 
     #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
     private ?File $file = null;
 
-    #[ORM\ManyToMany(targetEntity: JobOffer::class, inversedBy: 'jobApplication')]
-    #[ORM\JoinTable(name: 'job__application')]
-    private Collection $jobApplication;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: JobApplication::class)]
+    private Collection $jobApplications;
 
     public function __construct()
     {
-        $this->jobApplication = new ArrayCollection();
+        $this->jobApplications = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -222,25 +221,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, JobOffer>
+     * @return Collection<int, JobApplication>
      */
-    public function getJobApplication(): Collection
+    public function getJobApplications(): Collection
     {
-        return $this->jobApplication;
+        return $this->jobApplications;
     }
 
-    public function addJobApplication(JobOffer $jobApplication): static
+    public function addJobApplication(JobApplication $jobApplication): static
     {
-        if (!$this->jobApplication->contains($jobApplication)) {
-            $this->jobApplication->add($jobApplication);
+        if (!$this->jobApplications->contains($jobApplication)) {
+            $this->jobApplications->add($jobApplication);
+            $jobApplication->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeJobApplication(JobOffer $jobApplication): static
+    public function removeJobApplication(JobApplication $jobApplication): static
     {
-        $this->jobApplication->removeElement($jobApplication);
+        if ($this->jobApplications->removeElement($jobApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($jobApplication->getUser() === $this) {
+                $jobApplication->setUser(null);
+            }
+        }
 
         return $this;
     }

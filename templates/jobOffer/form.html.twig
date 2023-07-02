@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if type == "add"  %}
+        Register
+    {% else %}
+        Edytuj
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="job_offer_container">
+        {{ form_start(form) }}
+        <div class="box ten form_group">
+            <div class="box two padding_tiny">
+                {{ form_errors(form.title) }}
+            </div>
+            <div class="box two padding_tiny">
+                {{ form_label(form.title) }}
+            </div>
+            <div class="box five padding_tiny">
+                {{ form_widget(form.title) }}
+            </div>
+        </div>
+        <div class="box ten form_group">
+            <div class="box two padding_tiny">
+                {{ form_errors(form.description) }}
+            </div>
+            <div class="box two padding_tiny">
+                {{ form_label(form.description) }}
+            </div>
+            <div class="box five padding_tiny">
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+        {% if type == "add"  %}
+            <button id="submit" type="submit" class="button_main">Dodaj ofertę</button>
+        {% else %}
+            <button id="submit" type="submit" class="button_main">Edytuj ofertę</button>
+        {% endif %}
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
