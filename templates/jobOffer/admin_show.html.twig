@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aplication list{% endblock %}
+
+{% block body %}
+    <div class="">
+        <div>
+            <p><strong>{{ jobOffer.title }}</strong></p>
+            <p>{{ jobOffer.description }}</p>
+            <p>{{ jobOffer.createdAt|date("m/d/Y")}}</p>
+        </div>
+        <div>
+            <ul>
+                {% for application in jobOffer.JobApplications %}
+                    <li>
+                        <div>
+                            <p>application.id</p>
+                            <p>application.user.email</p>
+                            {% if application.isRead == false %}
+                                <p>Nowe</p>
+                            {% endif %}
+                            <a href="{{ path('job_application_show', {id: application.id  }) }}" class="button_main">Otworz aplikacje</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

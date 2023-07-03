@@ -37,7 +37,7 @@ class UserController extends AbstractController
 			$user->setFile($this->userService->setFile($form->get('file')->getData()));
 			$this->userRepository->save($user,true);
 
-			return $this->redirectToRoute('form');
+			return $this->redirectToRoute('app_login');
 		}
 
 		return $this->render('user/register.html.twig', [

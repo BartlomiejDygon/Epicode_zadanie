@@ -19,9 +19,16 @@ class JobOfferController extends AbstractController
 	{
 	}
 
-	#[Route('/{id}', name: 'job_offer_show')]
+	#[Route('/show/{id}', name: 'job_offer_show')]
 	public function show(JobOffer $jobOffer)
 	{
+		if ($this->isGranted('ROLE_ADMIN')) {
+
+			return $this->render('jobOffer/admin_show.html.twig', [
+				'jobOffer' => $jobOffer,
+			]);
+		}
+
 		$user = $this->getUser();
 		$hasApply = false;
 
@@ -36,14 +43,14 @@ class JobOfferController extends AbstractController
 			}
 		}
 
-		return $this->render('jobOffer/show.html.twig', [
+		return $this->render('jobOffer/user_show.html.twig', [
 			'jobOffer' => $jobOffer,
-			'd .' =>$hasApply
+			'hasApply' =>$hasApply
 		]);
 	}
 
 	#[Route('/list', name: 'job_offer_list')]
-	public function list(Request $request): Response
+	public function list(): Response
 	{
 		if (!$this->isGranted('ROLE_ADMIN')) {
 			throw $this->createAccessDeniedException('You are not allowed to access this section');

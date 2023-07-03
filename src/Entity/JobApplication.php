@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\JobAplicationRepository;
+use App\Repository\JobApplicationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
 
-#[ORM\Entity(repositoryClass: JobAplicationRepository::class)]
+#[ORM\Entity(repositoryClass: JobApplicationRepository::class)]
 #[ORM\Table(name: '`job__application`')]
 class JobApplication
 {
