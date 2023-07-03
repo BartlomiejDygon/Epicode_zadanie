@@ -19,6 +19,29 @@ class JobOfferController extends AbstractController
 	{
 	}
 
+	#[Route('/{id}', name: 'job_offer_show')]
+	public function show(JobOffer $jobOffer)
+	{
+		$user = $this->getUser();
+		$hasApply = false;
+
+		if( $user ){
+			$applications = $user->getJobApplications();
+
+			foreach ($applications as $application) {
+				if ($application->getJobOffer() === $jobOffer) {
+					$hasApply = true;
+					break;
+				}
+			}
+		}
+
+		return $this->render('jobOffer/show.html.twig', [
+			'jobOffer' => $jobOffer,
+			'd .' =>$hasApply
+		]);
+	}
+
 	#[Route('/list', name: 'job_offer_list')]
 	public function list(Request $request): Response
 	{

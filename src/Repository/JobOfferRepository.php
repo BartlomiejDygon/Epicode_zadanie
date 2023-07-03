@@ -61,8 +61,6 @@ class JobOfferRepository extends ServiceEntityRepository
 
     }
 
-
-
 //    public function findOneBySomeField($value): ?JobOffer
 //    {
 //        return $this->createQueryBuilder('j')
