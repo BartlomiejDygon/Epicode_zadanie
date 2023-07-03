@@ -3,10 +3,10 @@ import React from "react";
 const JobOffer = (props) => {
 
     return <div>
-        <h4>{props.title}</h4>
-        <p>{props.description}</p>
-        <a href={window.location.origin + "/dupixent-contest-test"}>Aplikuj</a>
-    </div>
+                <h4>{props.object.title}</h4>
+                <p>{props.object.description}</p>
+                <a href={window.location.origin + "/job_offer/" + props.object.id }>Aplikuj</a>
+          </div>
 }
 
 export default JobOffer;

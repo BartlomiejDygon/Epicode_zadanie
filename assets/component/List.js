@@ -1,9 +1,11 @@
 import React, {useEffect, useState, useReducer} from "react";
 import JobOffer from "./JobOffer";
-
+import ReactPaginate from 'react-paginate'
 
 const List  = () => {
     const [data, setData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+    const [itemPerPage] = useState(10)
     const [filters, setFilters] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
@@ -32,26 +34,84 @@ const List  = () => {
             .catch((error) => console.log(error));
     }, [filters.days, filters.sortBy]);
 
+    useEffect(() => {
+        const filteredItems = filterItems(data);
+        setFilteredData(filteredItems);
+    }, [filters.search, data]);
+
+
+    const filterItems = (itemsToFilter) => {
+        var filteredItems = itemsToFilter;
+        if (filters.search !== '') {
+            filteredItems = filteredItems.filter(item => {
+                return item.title.toLowerCase().includes(filters.search.toLowerCase());
+            })
+        }
+
+        return filteredItems;
+    }
     const handleSortChange = (value) => {
         setFilters({
             sortBy: value
-
         })
     }
 
     const handleDaysChange = (value) => {
         setFilters({
             days: value
-
         })
     }
 
     const handleSearchChange = (value) => {
         setFilters({
             search: value
-
         })
     }
+
+    function Items({ currentItems }) {
+        return (
+            <>
+                {currentItems &&
+                    currentItems.map((item, index) => (
+                        <JobOffer
+                            key = {index}
+                            object = {item}
+                        />
+                    )
+                )}
+            </>
+        );
+    }
+
+    function PaginatedItems({ itemsPerPage }) {
+
+        const [itemOffset, setItemOffset] = useState(0);
+        const endOffset = itemOffset + itemsPerPage;
+        const currentItems = filteredData.slice(itemOffset, endOffset);
+        const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+
+        const handlePageClick = (event) => {
+            const newOffset = (event.selected * itemsPerPage) % filteredData.length;
+            setItemOffset(newOffset);
+        };
+
+        return (
+            <>
+                <Items currentItems={currentItems} />
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="następne >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< poprzednie"
+                    renderOnZeroPageCount={null}
+                />
+            </>
+        );
+    }
+
+
     return <div>
         <div>
             <input type={'text'} value={filters.search} onChange={(e) => handleSearchChange(e.target.value)}/>
@@ -71,15 +131,8 @@ const List  = () => {
             </select>
         </div>
         <div>
-            {data.map((item, index) => (
-                <JobOffer
-                    key = {index}
-                    title = {item.title}
-                    description = {item.description}
-                />
-            ))}
+            <PaginatedItems itemsPerPage={itemPerPage} />
         </div>
-
     </div>
 }
 

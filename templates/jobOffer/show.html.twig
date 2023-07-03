@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+    <div class="">
+        <p><strong>{{ jobOffer.title }}</strong></p>
+        <p>{{ jobOffer.description }}</p>
+        <p>{{ jobOffer.createdAt|date("m/d/Y")}}</p>
+        {% if hasApply == true  %}
+            <p class="button_main">Aplikacja złożona</p>
+        {% else %}
+            <a href="{{ path('job_offer_edit', {id: jobOffer.id  }) }}" class="button_main">Otwórz aplikację</a>
+        {% endif %}
+    </div>
+{% endblock %}
