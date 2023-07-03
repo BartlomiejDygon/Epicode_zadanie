@@ -3,40 +3,45 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href="{{ absolute_url(asset('css/grid.css')) }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ absolute_url(asset('css/project-specific.css')) }}" rel="stylesheet" type="text/css"/>
+
+
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     </head>
     <body>
-    <header>
-        <div class="logo">
+    <header class="row">
+        <div class="logo one" >
             <a href="{{ path('main_page') }}" class="button_main">EpicJob</a>
         </div>
-        <navi>
-            <p>Moje konto</p>
-            <div class="user_panel">
-                {% if not app.user %}
-                    <h3>Witaj na EpicJob</h3>
-                    <p>Zaloguj sie i uzyskaj dostęp do szubkiego aplikowania i wielu innych funkcji</p>
-                    <a href="{{ path('app_login') }}" class="button_main">Zaloguj się</a>
-                    <p>Nie masz jeszcze konta ?</p>
-                    <a href="{{ path('user_add') }}" class="button_main">Zarejestruj się</a>
-                {% else %}
-                    <p>Moje aplikacje</p>
-                    <a href="{{ path('app_logout') }}" class="button_main">Wyloguj się</a>
-                {% endif %}
+        <navi class="box three">
+            <div class=" three float_right navi_button">
+                <p>Moje konto</p>
+                <div class=" user_panel box">
+                    {% if not app.user %}
+                        <h4>Witaj na EpicJob</h4>
+                        <p>Zaloguj sie i uzyskaj dostęp do szubkiego aplikowania i wielu innych funkcji</p>
+                        <a href="{{ path('app_login') }}" class="button_main_navi">Zaloguj się</a>
+                        <p>Nie masz jeszcze konta ?</p>
+                        <a href="{{ path('user_add') }}" class="button_main_navi">Zarejestruj się</a>
+                    {% else %}
+                        <a href="{{ path('app_logout') }}" class="button_main_navi">Wyloguj się</a>
+                    {% endif %}
+                </div>
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-                <p>Panel Administratora</p>
-                <div class="admin_panel">
-                    <a href="{{ path('job_offer_add') }}" class="button_main">Dodaj oferte</a>
-                    <a href="{{ path('job_offer_list') }}" class="button_main">Lista ofert</a>
+                <div class="five float_right navi_button admin_navi">
+                    <p>Panel Administratora</p>
+                    <div class="admin_panel user_panel box eightt">
+                        <a href="{{ path('job_offer_add') }}" class="button_main_navi">Dodaj oferte</a>
+                        <a href="{{ path('job_offer_list') }}" class="button_main_navi">Lista ofert</a>
+                    </div>
                 </div>
+
             {% endif %}
         </navi>
     </header>
         <section>
-
-
-
             {% block body %}{% endblock %}
         </section>
     </body>
