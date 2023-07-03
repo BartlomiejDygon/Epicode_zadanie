@@ -3,19 +3,19 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-    <div class="box middle_eight padding_huge choosing_box login_with_SSO_page">
+    <div class="">
         <ul>
-            {% for offert in jobOffers %}
+            {% for offer in pager %}
                 <li>
                     <div>
-                        <p><strong>{{ offert.title }}</strong></p>
-                        <p>{{ offert.description }}</p>
+                        <p><strong>{{ offer.title }}</strong></p>
+                        <p>{{ offer.description }}</p>
                         <div>
-                            <p>{{ offert.createdAt|date("m/d/Y")}}</p>
-                            <p>{{ offert.jobApplications|length }}</p>
+                            <p>{{ offer.createdAt|date("m/d/Y")}}</p>
+                            <p>{{ offer.jobApplications|length }}</p>
                         </div>
                             {% set isRead = false %}
-                            {% for application in offert.jobApplications %}
+                            {% for application in offer.jobApplications %}
                                {% if application.isRead == false %}
                                    {% if isRead == false %}
                                        {% set isRead = true %}
@@ -26,14 +26,17 @@
                             <p>NOWE</p>
                         {% endif %}
                         <div>
-                            <a href="{{ path('job_offer_show', {id: offert.id  }) }}" class="button_main">Otworz oferte</a>
+                            <a href="{{ path('job_offer_show', {id: offer.id  }) }}" class="button_main">Otworz oferte</a>
 
-                            <a href="{{ path('job_offer_edit', {id: offert.id  }) }}" class="button_main">Edytuj</a>
-                            <a href="{{ path('job_offer_remove', {id: offert.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="button_main">Usuń</a>
+                            <a href="{{ path('job_offer_edit', {id: offer.id  }) }}" class="button_main">Edytuj</a>
+                            <a href="{{ path('job_offer_remove', {id: offer.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="button_main">Usuń</a>
                         </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
+        <div class="row">
+            {{ pagerfanta(pager) }}
+        </div>
     </div>
 {% endblock %}

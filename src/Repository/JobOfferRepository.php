@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\JobOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -60,6 +61,14 @@ class JobOfferRepository extends ServiceEntityRepository
 		return $qb->getQuery()->getResult();
 
     }
+
+	public function orderByNewApplication(): QueryBuilder
+	{
+		$qb =  $this->createQueryBuilder('j')
+			->orderBy('j.createdAt','DESC');
+
+		return  $qb;
+	}
 
 //    public function findOneBySomeField($value): ?JobOffer
 //    {

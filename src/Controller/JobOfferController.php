@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\JobOffer;
 use App\Form\JobOfferType;
 use App\Repository\JobOfferRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,16 +52,22 @@ class JobOfferController extends AbstractController
 	}
 
 	#[Route('/list', name: 'job_offer_list')]
-	public function list(): Response
+	public function list(Request $request): Response
 	{
 		if (!$this->isGranted('ROLE_ADMIN')) {
 			throw $this->createAccessDeniedException('You are not allowed to access this section');
 		}
 
-		$jobOffers = $this->jobOfferRepository->findAll();
+		$qb = $this->jobOfferRepository->orderByNewApplication();
+		$adapter = new QueryAdapter($qb);
+		$pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
+			$adapter,
+			$request->query->get('page', 1),
+			5
+		);
 
 		return $this->render('jobOffer/list.html.twig', [
-			'jobOffers' => $jobOffers,
+			'pager' => $pagerfanta,
 		]);
 	}
 
