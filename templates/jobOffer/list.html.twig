@@ -14,23 +14,23 @@
                             <p>{{ offert.createdAt|date("m/d/Y")}}</p>
                             <p>{{ offert.jobApplications|length }}</p>
                         </div>
+                            {% set isRead = false %}
+                            {% for application in offert.jobApplications %}
+                               {% if application.isRead == false %}
+                                   {% if isRead == false %}
+                                       {% set isRead = true %}
+                                   {% endif %}
+                               {% endif %}
+                            {% endfor %}
+                        {% if isRead == true %}
+                            <p>NOWE</p>
+                        {% endif %}
                         <div>
+                            <a href="{{ path('job_offer_show', {id: offert.id  }) }}" class="button_main">Otworz oferte</a>
+
                             <a href="{{ path('job_offer_edit', {id: offert.id  }) }}" class="button_main">Edytuj</a>
                             <a href="{{ path('job_offer_remove', {id: offert.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="button_main">Usuń</a>
                         </div>
-                        <ul>
-                            {% for application in offert.jobApplications %}
-                            <li>
-                                <div>
-                                    {% if application.isRead == false %}
-                                        <p><strong>Nowe</strong></p>
-                                    {% endif %}
-                                    <p>{{ application.user.emial }}</p>
-                                    <a href="{{ path('job_offer_edit', {id: offert.id  }) }}" class="button_main">Otwórz aplikację</a>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
                     </div>
                 </li>
             {% endfor %}

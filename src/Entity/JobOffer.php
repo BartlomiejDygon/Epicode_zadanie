@@ -15,24 +15,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 class JobOffer
 {
 	#[ORM\Id]
-               	#[ORM\Column(type: "uuid", unique: true)]
-               	#[ORM\GeneratedValue(strategy: "CUSTOM")]
-               	#[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-               	protected UuidInterface|string $id;
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    protected UuidInterface|string $id;
 
 	#[Assert\Length(
-               		min: 5,
-               		minMessage: 'Tytuł musi posiadać co namiej {{ limit }} znaków'
-               	)]
-                   #[ORM\Column(length: 255)]
-                   private ?string $title = null;
+    	min: 5,
+    	minMessage: 'Tytuł musi posiadać co namiej {{ limit }} znaków'
+    )]
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
 	#[Assert\Length(
-               		min: 10,
-               		minMessage: 'Opis musi posiadać co namiej {{ limit }} znaków'
-               	)]
-                   #[ORM\Column(length: 2500)]
-                   private ?string $description = null;
+    	min: 10,
+    	minMessage: 'Opis musi posiadać co namiej {{ limit }} znaków'
+    )]
+    #[ORM\Column(length: 2500)]
+    private ?string $description = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -97,8 +97,8 @@ class JobOffer
 
     public function addJobApplication(JobApplication $jobApplication): static
     {
-        if (!$this->jobAplications->contains($jobApplication)) {
-            $this->jobAplications->add($jobApplication);
+        if (!$this->jobApplications->contains($jobApplication)) {
+            $this->jobApplications->add($jobApplication);
             $jobApplication->setJobOffer($this);
         }
 
@@ -107,7 +107,7 @@ class JobOffer
 
     public function removeJobApplication(JobApplication $jobApplication): static
     {
-        if ($this->jobAplications->removeElement($jobApplication)) {
+        if ($this->jobApplications->removeElement($jobApplication)) {
             // set the owning side to null (unless already changed)
             if ($jobApplication->getJobOffer() === $this) {
                 $jobApplication->setJobOffer(null);

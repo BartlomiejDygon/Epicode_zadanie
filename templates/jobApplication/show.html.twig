@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aplication - {{ jobApplication.id }}{% endblock %}
+
+{% block body %}
+    <div class="">
+        <ul>
+            <li>
+               <p><stong>Id aplikacji :</stong>{{ jobApplication.id }}</p>
+            </li>
+            <li>
+                <p><stong>Email :</stong>{{ jobApplication.user.email }}</p>
+            </li>
+            <li>
+                <p><stong>Imię i nazwosko :</stong>{{ jobApplication.user.firstName }}, {{ jobApplication.user.lastName }} </p>
+            </li>
+            <li>
+                <p><stong>Telefon :</stong>{{ jobApplication.user.phone }}</p>
+            </li>
+            <li>
+                <p><stong>Adres :</stong>{{ jobApplication.user.address }}</p>
+            </li>
+        </ul>
+
+        <a href="{{ path('download_cv', {id: jobApplication.user.file.id  }) }}" class="button_main">Pobierz CV</a>
+
+
+        <a href="{{ path('job_offer_show', {id: jobApplication.jobOffer.id  }) }}" class="button_main">Cofnij</a>
+
+    </div>
+{% endblock %}

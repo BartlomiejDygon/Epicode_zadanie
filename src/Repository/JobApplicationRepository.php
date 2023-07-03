@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\JobAplication;
+use App\Entity\JobApplication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<JobAplication>
+ * @extends ServiceEntityRepository<JobApplication>
  *
- * @method JobAplication|null find($id, $lockMode = null, $lockVersion = null)
- * @method JobAplication|null findOneBy(array $criteria, array $orderBy = null)
- * @method JobAplication[]    findAll()
- * @method JobAplication[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method JobApplication|null find($id, $lockMode = null, $lockVersion = null)
+ * @method JobApplication|null findOneBy(array $criteria, array $orderBy = null)
+ * @method JobApplication[]    findAll()
+ * @method JobApplication[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class JobAplicationRepository extends ServiceEntityRepository
+class JobApplicationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, JobAplication::class);
+        parent::__construct($registry, JobApplication::class);
     }
 
-    public function save(JobAplication $entity, bool $flush = false): void
+    public function save(JobApplication $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class JobAplicationRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(JobAplication $entity, bool $flush = false): void
+    public function remove(JobApplication $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class JobAplicationRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return JobAplication[] Returns an array of JobAplication objects
+//     * @return JobApplication[] Returns an array of JobApplication objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class JobAplicationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?JobAplication
+//    public function findOneBySomeField($value): ?JobApplication
 //    {
 //        return $this->createQueryBuilder('j')
 //            ->andWhere('j.exampleField = :val')
