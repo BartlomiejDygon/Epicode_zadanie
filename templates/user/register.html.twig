@@ -3,98 +3,62 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-
-    <div class="register_container">
-        {{ form_start(form) }}
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.email) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.email) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.email) }}
-            </div>
-        </div>
-        {% for password in form.password %}
-            <div class="box ten form_group">
-                <div class="box two padding_tiny">
-                    {{ form_errors(password) }}
-                </div>
-                <div class="box two padding_tiny">
-                    {{ form_label(password) }}
-                </div>
-                <div class="box five padding_tiny">
-                    {{ form_widget(password) }}
+    <div class="five form_container">
+        <div class="five ">
+            {{ form_start(form) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.email) }}
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
                 </div>
             </div>
-        {% endfor %}
-{#        <div class="box ten form_group">#}
-{#            <div class="box two padding_tiny">#}
-{#                {{ form_label(form.password_second) }}#}
-{#            </div>#}
-{#            <div class="box five padding_tiny">#}
-{#                {{ form_widget(form.password_second) }}#}
-{#            </div>#}
-{#        </div>#}
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.firstName) }}
+            {% for password in form.password %}
+                <div class="ten form_group">
+                    <div class="ten flex_column">
+                        {{ form_errors(password) }}
+                        {{ form_label(password) }}
+                        {{ form_widget(password) }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.firstName) }}
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                </div>
             </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.firstName) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.lastName) }}
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                </div>
             </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.firstName) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.phone) }}
+                    {{ form_label(form.phone) }}
+                    {{ form_widget(form.phone) }}
+                </div>
             </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.address) }}
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.file) }}
+                    {{ form_label(form.file) }}
+                    {{ form_widget(form.file) }}
+                </div>
+            </div>
+            <button id="submit" type="submit" class="ten">Zarejestruj się</button>
+            {{ form_end(form) }}
         </div>
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.lastName) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.lastName) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.lastName) }}
-            </div>
-        </div>
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.phone) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.phone) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.phone) }}
-            </div>
-        </div>
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.address) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.address) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.address) }}
-            </div>
-        </div>
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.file) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.file) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.file) }}
-            </div>
-        </div>
-        <button id="submit" type="submit" class="button_main">Zarejestruj się</button>
-        {{ form_end(form) }}
-
     </div>
 {% endblock %}

@@ -45,3 +45,8 @@
     float: left;
     transition: ease-out 300ms;
 }
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+}

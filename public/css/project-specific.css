@@ -66,4 +66,53 @@ header {
 .admin_navi{
     margin-right: 10px;
 }
+section {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+section div {
+    display: flex;
+    justify-content: center;
+}
+
+form label {
+    font-size: 32px;
+    text-align: center;
+
+}
+
+form input {
+    height: 50px;
+    font-size: 23px;
+    text-align: center;
+}
+
+form button {
+    margin-top: 16px;
+    font-size: 30px;
+    background: #1E2F69;
+    color: white ;
+}
+
+form div {
+    margin-top: 10px;
+}
+
+.alert {
+    font-size: 26px;
+    color: #83122A;
+}
+
+.form_container {
+    padding-bottom: 120px;
+    padding-top: 90px;
+    border: 1px solid black;
+}
+
+.form_group {
+    display: flex;
+    justify-content: center;
+}
 
