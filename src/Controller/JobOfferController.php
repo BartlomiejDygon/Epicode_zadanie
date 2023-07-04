@@ -57,7 +57,6 @@ class JobOfferController extends AbstractController
 		if (!$this->isGranted('ROLE_ADMIN')) {
 			throw $this->createAccessDeniedException('You are not allowed to access this section');
 		}
-
 		$qb = $this->jobOfferRepository->orderByNewApplication();
 		$adapter = new QueryAdapter($qb);
 		$pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(

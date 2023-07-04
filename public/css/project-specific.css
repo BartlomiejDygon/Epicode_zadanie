@@ -21,7 +21,7 @@ header {
     display: none !important;
 }
 .navi_button {
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     justify-self: center;
     align-self: center;
@@ -37,12 +37,14 @@ header {
     flex-direction: column;
     align-items: center;
     padding-bottom: 25px;
+    z-index: 10;
+    position: relative;
 }
 .navi_button:hover .user_panel {
     display:flex;
 }
 .user_panel p {
-    font-size: 24px;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -148,7 +150,7 @@ form div {
 }
 
 .job_offer_filters select{
-    font-size: 22px;
+    font-size: 16px;
     text-align: center;
     background-color: #1E2F69 ;
     color: white;
@@ -217,6 +219,57 @@ form div {
     font-size: 24px;
     font-weight: bold;
     color: #1E2F69;
+}
+
+.content_container {
+    border: 1px solid black;
+    padding: 30px
+}
+
+.button_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #1E2F69;
+    width: 250px;
+    height: 150px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: bold;
+}
+.new_apply_pin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 25px;
+    border-radius: 45px;
+    color: white;
+    background-color: #83122A;
+    padding: 10px;
+}
+.application_list li {
+    border-bottom: 1px solid black;
+    margin-top: 30px;
+}
+
+.apply_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #1E2F69;
+    width: 150px;
+    height: 50px;
+    border-radius: 40px;
+    text-decoration: none;
+    align-self: end;
+    margin-bottom: 10px;
+}
+.pagination_container{
+    justify-content: flex-end;
 }
 
 

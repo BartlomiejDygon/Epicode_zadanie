@@ -1,21 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List{% endblock %}
+{% block title %}Oferta - {{ jobOffer.title }} {% endblock %}
 
 {% block body %}
-    <div class="">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
+    <div class="box ten">
+        <div class="content_container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="box six">
+                <h1><strong>{{ jobOffer.title }}</strong></h1>
+                <p>{{ jobOffer.createdAt|date("m/d/Y")}}</p>
+                <p>{{ jobOffer.description }}</p>
             </div>
-        {% endfor %}
-        <p><strong>{{ jobOffer.title }}</strong></p>
-        <p>{{ jobOffer.description }}</p>
-        <p>{{ jobOffer.createdAt|date("m/d/Y")}}</p>
-        {% if hasApply == true  %}
-            <p class="button_main">Aplikacja złożona</p>
-        {% else %}
-            <a href="{{ path('job_application_new', {id: jobOffer.id  }) }}" class="button_main">Złóż aplikacje</a>
-        {% endif %}
+            <div class="two">
+                {% if hasApply == true  %}
+                    <p class="button_main">Złożona</p>
+                {% else %}
+                    <a href="{{ path('job_application_new', {id: jobOffer.id  }) }}" class="button_main">Złóż aplikacje</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

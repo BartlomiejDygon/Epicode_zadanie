@@ -3,39 +3,43 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-    <div class="">
-        <ul>
+    <div class="box ten">
+        <div class="pagination_container">
+            {{ pagerfanta(pager) }}
+        </div>
+        <ul class="application_list">
             {% for offer in pager %}
                 <li>
-                    <div>
-                        <p><strong>{{ offer.title }}</strong></p>
-                        <p>{{ offer.description }}</p>
-                        <div>
-                            <p>{{ offer.createdAt|date("m/d/Y")}}</p>
-                            <p>{{ offer.jobApplications|length }}</p>
-                        </div>
+                    <div class="ten">
+                        <div class="flex_column three">
+                            <p><strong>Id: </strong>{{ offer.id }}</p>
+                            <p><strong>Tytuł: </strong>{{ offer.title }}</p>
+                            <p><strong>Stworzono: </strong>{{ offer.createdAt|date("m/d/Y")}}</p>
+                            <p><strong>Ilość aplikacji: </strong>{{ offer.jobApplications|length }}</p>
                             {% set isRead = false %}
                             {% for application in offer.jobApplications %}
-                               {% if application.isRead == false %}
-                                   {% if isRead == false %}
-                                       {% set isRead = true %}
-                                   {% endif %}
-                               {% endif %}
+                                {% if application.isRead == false %}
+                                    {% if isRead == false %}
+                                        {% set isRead = true %}
+                                    {% endif %}
+                                {% endif %}
                             {% endfor %}
-                        {% if isRead == true %}
-                            <p>NOWE</p>
-                        {% endif %}
-                        <div>
-                            <a href="{{ path('job_offer_show', {id: offer.id  }) }}" class="button_main">Otworz oferte</a>
+                            {% if isRead == true %}
+                                <p class="new_apply_pin" >NOWE</p>
+                            {% endif %}
+                        </div>
 
-                            <a href="{{ path('job_offer_edit', {id: offer.id  }) }}" class="button_main">Edytuj</a>
-                            <a href="{{ path('job_offer_remove', {id: offer.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="button_main">Usuń</a>
+                        <p class="four">{{ offer.description }}</p>
+                        <div class="flex_column three">
+                            <a href="{{ path('job_offer_show', {id: offer.id  }) }}" class="apply_btn">Otworz oferte</a>
+                            <a href="{{ path('job_offer_edit', {id: offer.id  }) }}" class="apply_btn">Edytuj</a>
+                            <a href="{{ path('job_offer_remove', {id: offer.id  }) }}" onclick="return confirm('Czy jesteś pewien ?')" class="apply_btn">Usuń</a>
                         </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
-        <div class="row">
+        <div class="pagination_container">
             {{ pagerfanta(pager) }}
         </div>
     </div>

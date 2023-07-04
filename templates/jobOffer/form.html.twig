@@ -10,37 +10,29 @@
 
 {% block body %}
 
-    <div class="job_offer_container">
+    <div class="five form_container">
+        <div class="five">
         {{ form_start(form) }}
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.title) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.title) }}
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
             </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.title) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.description) }}
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                </div>
             </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.title) }}
-            </div>
-        </div>
-        <div class="box ten form_group">
-            <div class="box two padding_tiny">
-                {{ form_errors(form.description) }}
-            </div>
-            <div class="box two padding_tiny">
-                {{ form_label(form.description) }}
-            </div>
-            <div class="box five padding_tiny">
-                {{ form_widget(form.description) }}
-            </div>
-        </div>
         {% if type == "add"  %}
-            <button id="submit" type="submit" class="button_main">Dodaj ofertę</button>
+            <button id="submit" type="submit" class="ten">Dodaj ofertę</button>
         {% else %}
-            <button id="submit" type="submit" class="button_main">Edytuj ofertę</button>
+            <button id="submit" type="submit" class="ten">Edytuj ofertę</button>
         {% endif %}
-
         {{ form_end(form) }}
-
+        </div>
     </div>
 {% endblock %}
