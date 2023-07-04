@@ -7,7 +7,7 @@
   {% if error %}
       <div  class="alert " style="max-height: 50px; min-height: 0px;"><p>{{ error.messageKey|trans(error.messageData, 'security') }}</p></div>
   {% endif %}
-      <div class="ten">
+      <div class="ten flex_column register_container">
           <form class="five" action="{{ path('app_login') }}" method="post">
               <div class="flex_column ten">
                   <label for="username">Email:</label>
@@ -19,6 +19,8 @@
               </div>
               <button class="ten" type="submit">Zaloguj</button>
           </form>
+          <p>Nie masz jeszcze konta ?</p>
+          <a href="{{ path('user_add') }}" class="button_main_navi">Zarejestruj się</a>
       </div>
   </div>
 {% endblock %}
