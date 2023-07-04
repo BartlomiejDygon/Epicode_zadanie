@@ -25,6 +25,8 @@
                         <p>Nie masz jeszcze konta ?</p>
                         <a href="{{ path('user_add') }}" class="button_main_navi">Zarejestruj się</a>
                     {% else %}
+                        <a href="{{ path('user_edit') }}" class="button_main_navi">Edycja</a>
+                        <p>------------------</p>
                         <a href="{{ path('app_logout') }}" class="button_main_navi">Wyloguj się</a>
                     {% endif %}
                 </div>

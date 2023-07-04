@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class UserType extends AbstractType
 {
@@ -52,7 +53,13 @@ class UserType extends AbstractType
 	        ])
 	        ->add('file', FileType::class, [
 		        'label' => 'CV',
-		        'mapped' => false
+		        'mapped' => false,
+		        'constraints' => [
+			        new File([
+				        'mimeTypes' => ['application/pdf'],
+				        'mimeTypesMessage' => 'Proszę przesłać plik w formacie PDF.',
+			        ]),
+		        ],
 	        ]) ;
     }
 

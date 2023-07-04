@@ -32,8 +32,10 @@ class JobApplicationController extends AbstractController
 			throw $this->createAccessDeniedException('You are not allowed to access this section');
 		}
 
-		if ($user->getFile() === null) {
-			throw $this->createAccessDeniedException('You are not allowed to access this section');
+//		dd($user->getFile());
+		if (!$user->getFile()) {
+			$this->addFlash('error', 'Dodaj CV');
+			return $this->redirectToRoute('user_edit');
 		}
 
 		$jobApplication = new JobApplication($jobOffer, $user);

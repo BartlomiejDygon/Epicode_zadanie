@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit {% endblock %}
+
+{% block body %}
+    <div class="five form_container">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="five ">
+            {{ form_start(form) }}
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.email) }}
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.firstName) }}
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.lastName) }}
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.phone) }}
+                    {{ form_label(form.phone) }}
+                    {{ form_widget(form.phone) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.address) }}
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+            </div>
+            <div class="ten form_group">
+                <div class="ten flex_column">
+                    {{ form_errors(form.file) }}
+                    {{ form_label(form.file) }}
+                    {{ form_widget(form.file) }}
+                </div>
+            </div>
+            <button id="submit" type="submit" class="ten">Edytuj</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
