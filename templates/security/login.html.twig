@@ -3,19 +3,21 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="">
+<div class="box five form_container">
   {% if error %}
-      <div class="alert " style="max-height: 50px; min-height: 0px;"><p>{{ error.messageKey|trans(error.messageData, 'security') }}</p></div>
+      <div  class="alert " style="max-height: 50px; min-height: 0px;"><p>{{ error.messageKey|trans(error.messageData, 'security') }}</p></div>
   {% endif %}
-      <div class="box five padding_small">
-          <form action="{{ path('app_login') }}" method="post">
-              <label for="username">Email:</label>
-              <input type="text" id="username" name="_username" value="{{ last_username }}">
-
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="_password">
-
-              <button type="submit">login</button>
+      <div class="ten">
+          <form class="five" action="{{ path('app_login') }}" method="post">
+              <div class="flex_column ten">
+                  <label for="username">Email:</label>
+                  <input type="text" id="username" name="_username" value="{{ last_username }}">
+              </div>
+              <div class="flex_column ten">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="_password">
+              </div>
+              <button class="ten" type="submit">Zaloguj</button>
           </form>
       </div>
   </div>

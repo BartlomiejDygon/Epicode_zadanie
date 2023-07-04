@@ -1,0 +1,58 @@
+.one {
+    width: 10%;
+}
+.two {
+    width: 20%;
+}
+.three {
+    width: 30%;
+}
+.four {
+    width: 40%;
+}
+.five {
+    width: 50%;
+}
+.six {
+    width: 60%;
+}
+.seven {
+    width: 70%;
+}
+.eight {
+    width: 80%;
+}
+.nine {
+    width: 90%;
+}
+.ten {
+    width: 100%;
+}
+.float_left {
+    float: left !important;
+}
+.float_right {
+    float: right !important;
+}
+.width_auto {
+    width: auto !important;
+}
+.row {
+    width: 100%;
+}
+.box {
+    display: block;
+    float: left;
+    transition: ease-out 300ms;
+}
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex_row {
+    display: flex;
+    flex-direction: row;
+}
+

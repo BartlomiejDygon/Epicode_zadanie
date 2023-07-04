@@ -3,24 +3,31 @@
 {% block title %}Aplication list{% endblock %}
 
 {% block body %}
-    <div class="">
-        <div>
-            <p><strong>{{ jobOffer.title }}</strong></p>
-            <p>{{ jobOffer.description }}</p>
-            <p>{{ jobOffer.createdAt|date("m/d/Y")}}</p>
+    <div class="flex_column">
+        <div class="content_container" >
+            <div class="box three">
+                <h1><strong>{{ jobOffer.title }}</strong></h1>
+                <p>Id : {{ jobOffer.id }}</p>
+                <p>Stworzona : {{ jobOffer.createdAt|date("m/d/Y")}}</p>
+                <p>Ilosc aplikacji : {{ jobOffer.JobApplications|length }}</p>
+            </div>
+            <div class="box six">
+                <p>{{ jobOffer.description }}</p>
+
+            </div>
         </div>
-        <div>
-            <ul>
-                {% for application in jobOffer.JobApplications %}
-                    <li>
-                        <div>
-                            <p>application.id</p>
-                            <p>application.user.email</p>
+        <div class="box ten">
+            <ul class="application_list">
+                {% for application in jobOffer.JobApplications|sort|reverse %}
+                    <li class="ten flex_row">
+                        <div class="ten flex_column">
+                            <p>ID aplikacji :  {{ application.id }}</p>
+                            <p>Email aplikującego :  {{ application.user.email }}</p>
                             {% if application.isRead == false %}
-                                <p>Nowe</p>
+                                <p class="new_apply_pin">Nowe</p>
                             {% endif %}
-                            <a href="{{ path('job_application_show', {id: application.id  }) }}" class="button_main">Otworz aplikacje</a>
                         </div>
+                        <a href="{{ path('job_application_show', {id: application.id  }) }}" class="apply_btn">Otworz aplikacje</a>
                     </li>
                 {% endfor %}
             </ul>

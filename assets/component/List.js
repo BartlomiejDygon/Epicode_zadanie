@@ -96,26 +96,35 @@ const List  = () => {
         };
 
         return (
-            <>
-                <Items currentItems={currentItems} />
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="następne >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel="< poprzednie"
-                    renderOnZeroPageCount={null}
-                />
-            </>
+            <div className={'ten flex_column job_offer_list_content_container'}>
+                <div className={'job_offer_list flex_column'}>
+                    <Items currentItems={currentItems} />
+                </div>
+                <div className={'job_offer_list_pagination four'}>
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextLabel="następne >"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        pageCount={pageCount}
+                        previousLabel="< poprzednie"
+                        renderOnZeroPageCount={null}
+                    />
+                </div>
+            </div>
         );
     }
 
 
-    return <div>
-        <div>
-            <input type={'text'} value={filters.search} onChange={(e) => handleSearchChange(e.target.value)}/>
-            <select name="days_filter" onChange={(e) => handleDaysChange(e.target.value) }
+    return <div className={'ten flex_column job_offer_list_container'}>
+        <div className={'job_offer_filters six'}>
+            <input className={'six'}
+                   type={'text'}
+                   value={filters.search}
+                   onChange={(e) => handleSearchChange(e.target.value)}
+                   placeholder={'Wyszukaj'}
+            />
+            <select className={'two'} name="days_filter" onChange={(e) => handleDaysChange(e.target.value) }
                     value={filters.days}>
                 <option value={0}>Wszystkie</option>
                 <option value={1}>Z dzisiaj</option>
@@ -124,15 +133,13 @@ const List  = () => {
                 <option value={14}>Z 14 dni</option>
                 <option value={28}>Z 28 dni</option>
             </select>
-            <select name="sort_filter" onChange={(e) => handleSortChange(e.target.value) }
+            <select className={'two'} name="sort_filter" onChange={(e) => handleSortChange(e.target.value) }
                     value={filters.sortBy}>
                 <option value={'desc'}>Od najnowszych</option>
                 <option value={'asc'}>Od najstarszych</option>
             </select>
         </div>
-        <div>
             <PaginatedItems itemsPerPage={itemPerPage} />
-        </div>
     </div>
 }
 
