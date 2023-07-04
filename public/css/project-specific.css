@@ -1,5 +1,5 @@
 header {
-    height: 10vh;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
 }
@@ -21,7 +21,7 @@ header {
     display: none !important;
 }
 .navi_button {
-    font-size: 20px;
+    font-size: 18px;
     color: white;
     justify-self: center;
     align-self: center;
@@ -71,7 +71,7 @@ header {
 section {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 section div {
@@ -80,14 +80,14 @@ section div {
 }
 
 form label {
-    font-size: 32px;
+    font-size: 22px;
     text-align: center;
 
 }
 
 form input {
-    height: 50px;
-    font-size: 23px;
+    height: 30px;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -270,6 +270,10 @@ form div {
 }
 .pagination_container{
     justify-content: flex-end;
+}
+
+.register_container {
+    align-items:center;
 }
 
 
